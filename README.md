@@ -1,0 +1,2 @@
+# KaChing
+Descrição do Propósito do Sistema: O objetivo do sistema será em economizar tempo do cidadão realizando o controle domestico básico de uma família. Esse controle compreende em: somar todas as despesas lançadas no sistema, calcular a diferença da renda com as despesas, prevê as despesas futuras com base dos dados do usuário. Além disso, o sistema pretende auxiliar o usuário a ter o habito de realizar um controle de suas próprias finanças com um design prático e objetivo.
