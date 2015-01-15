@@ -12,17 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import com.toedter.calendar.JCalendar;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Color;
+
 
 public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-	private JTable table_1;
-	private JTable table_2;
-	private JTable table_3;
+	
 
 	/**
 	 * Launch the application.
@@ -46,7 +41,7 @@ public class TelaPrincipal extends JFrame {
 	public TelaPrincipal() {
 		setTitle("KaChing");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1011, 700);
+		setBounds(100, 100, 1200, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -77,7 +72,7 @@ public class TelaPrincipal extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Controle do Caixa", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(243, 11, 692, 449);
+		panel_2.setBounds(243, 11, 545, 449);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -87,7 +82,7 @@ public class TelaPrincipal extends JFrame {
 		InserirReceita.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/img/plus+.png")));
 		
 		JLabel InserirDespesas = new JLabel("Inserir Despesas");
-		InserirDespesas.setBounds(10, 83, 164, 57);
+		InserirDespesas.setBounds(10, 83, 145, 57);
 		panel_2.add(InserirDespesas);
 		InserirDespesas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/img/rounded61.png")));
 		
@@ -105,8 +100,7 @@ public class TelaPrincipal extends JFrame {
 		Relatorios.setBounds(10, 271, 145, 57);
 		panel_2.add(Relatorios);
 		Relatorios.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/img/relatorio..png")));
-	
-		
+
 		
 	}
 }
