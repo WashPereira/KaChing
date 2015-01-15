@@ -28,6 +28,8 @@ import com.toedter.components.JSpinField;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JInserirEditarDespesa extends JFrame {
 
@@ -113,6 +115,12 @@ public class JInserirEditarDespesa extends JFrame {
 		contentPane.add(btnCancelar_1);
 		
 		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(javax.swing.JOptionPane.showConfirmDialog(null,"Deseja realmente sair?","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION )==0)
+					JInserirEditarDespesa.this.dispose();
+			}
+		});
 		btnSair.setToolTipText("Clique para sair da tela.");
 		btnSair.setBounds(324, 307, 89, 23);
 		contentPane.add(btnSair);
