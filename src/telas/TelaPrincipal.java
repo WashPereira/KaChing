@@ -101,5 +101,10 @@ public class TelaPrincipal extends JFrame {
 		panel_2.add(Relatorios);
 		Relatorios.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/img/relatorio..png")));
 		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/img/marcar.png")));
+		lblNewLabel.setBounds(807, 46, 46, 14);
+		panel_2.add(lblNewLabel);
+		
 	}
 }
