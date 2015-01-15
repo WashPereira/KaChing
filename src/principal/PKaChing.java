@@ -8,6 +8,7 @@ public class PKaChing {
 		//Alterado por Luiz Gabriel
 		//Alterado por Wanderson R. 14/01
 		System.out.print("hello");
+		
 
 	}
 
