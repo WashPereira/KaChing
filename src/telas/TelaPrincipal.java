@@ -72,7 +72,7 @@ public class TelaPrincipal extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Controle do Caixa", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(243, 11, 545, 449);
+		panel_2.setBounds(243, 11, 931, 449);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -100,6 +100,10 @@ public class TelaPrincipal extends JFrame {
 		Relatorios.setBounds(10, 271, 145, 57);
 		panel_2.add(Relatorios);
 		Relatorios.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/img/relatorio..png")));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(837, 46, 46, 14);
+		panel_2.add(lblNewLabel);
 
 		
 	}
