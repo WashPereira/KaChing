@@ -33,6 +33,7 @@ public class JInserirEditarDespesa extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * É só uma ideia
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
