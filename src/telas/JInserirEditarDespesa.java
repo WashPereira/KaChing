@@ -25,6 +25,9 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.border.TitledBorder;
 
 public class JInserirEditarDespesa extends JFrame {
 
@@ -99,23 +102,19 @@ public class JInserirEditarDespesa extends JFrame {
 		formattedTextField.setBounds(98, 248, 85, 20);
 		contentPane.add(formattedTextField);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 288, 438, 8);
-		contentPane.add(separator);
-		
 		JButton btnCancelar = new JButton("Ok");
 		btnCancelar.setToolTipText("Clique para confirmar as edi\u00E7\u00F5es realizadas.");
-		btnCancelar.setBounds(240, 307, 89, 23);
+		btnCancelar.setBounds(228, 307, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		JButton btnCancelar_1 = new JButton("Cancelar");
 		btnCancelar_1.setToolTipText("Clique para cancelar as edi\u00E7\u00F5es realizadas.");
-		btnCancelar_1.setBounds(135, 307, 89, 23);
+		btnCancelar_1.setBounds(127, 307, 89, 23);
 		contentPane.add(btnCancelar_1);
 		
 		JButton btnSair = new JButton("Sair");
 		btnSair.setToolTipText("Clique para sair da tela.");
-		btnSair.setBounds(339, 307, 89, 23);
+		btnSair.setBounds(324, 307, 89, 23);
 		contentPane.add(btnSair);
 		
 		JDateChooser dateChooser = new JDateChooser();
@@ -128,8 +127,14 @@ public class JInserirEditarDespesa extends JFrame {
 		spinField.setBounds(160, 212, 29, 20);
 		contentPane.add(spinField);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(18, 307, 89, 23);
-		contentPane.add(btnNewButton);
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 11, 416, 270);
+		contentPane.add(panel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(10, 284, 416, 58);
+		contentPane.add(panel_1);
 	}
 }
