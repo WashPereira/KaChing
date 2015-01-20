@@ -5,24 +5,53 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
+
 import java.awt.TextArea;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JToggleButton;
+import javax.swing.JScrollBar;
+
+import classes_extras.Conexao;
+import classes_extras.JNumberFormatField;
+
+import javax.swing.ImageIcon;
+
+import java.awt.Frame;
+import java.awt.Window.Type;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import classes_extras.Conexao;
+import classes_extras.Iniciar;
+
+import java.sql.*;
+
+import classes_extras.CadastroDespesa;
+
 public class JInserirDespesa extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField textField;
+	private JPanel JFInserirDespesa;
+	private JTextField nome_despesa;
 
 	/**
 	 * Launch the application.
@@ -45,94 +74,107 @@ public class JInserirDespesa extends JFrame {
 	 * Create the frame.
 	 */
 	public JInserirDespesa() {
+		setName("JFInserirDespesa");
+		setResizable(false);
+		setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Inserir Despesa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 466, 472);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setBounds(100, 100, 750, 700);
+		JFInserirDespesa = new JPanel();
+		JFInserirDespesa.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(JFInserirDespesa);
+		JFInserirDespesa.setLayout(null);
+		setLocationRelativeTo(null); //faz abrir centralizado na tela.
 		
-		JLabel lblNomeDaDespesa = new JLabel("Nome da despesa:");
-		lblNomeDaDespesa.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNomeDaDespesa.setBounds(23, 43, 118, 14);
-		contentPane.add(lblNomeDaDespesa);
+		JLabel lblNomeDaDespesa = new JLabel("Despesa:");
+		lblNomeDaDespesa.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblNomeDaDespesa.setBounds(23, 25, 118, 28);
+		JFInserirDespesa.add(lblNomeDaDespesa);
 		
-		textField = new JTextField();
-		textField.setToolTipText("Insira o nome da despesa.");
-		textField.setBounds(141, 41, 204, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		nome_despesa = new JTextField();
+		nome_despesa.setToolTipText("Insira o nome da despesa.");
+		nome_despesa.setBounds(20, 64, 685, 28);
+		JFInserirDespesa.add(nome_despesa);
+		nome_despesa.setColumns(10);
 		
-		JLabel lblVencimento = new JLabel("Vencimento:");
-		lblVencimento.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblVencimento.setBounds(23, 92, 109, 14);
-		contentPane.add(lblVencimento);
+		TextArea descricao_despesa = new TextArea();
+		descricao_despesa.setBounds(23, 137, 682, 131);
+		JFInserirDespesa.add(descricao_despesa);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setToolTipText("Insira a data de vencimento da despesa.");
-		dateChooser.setBounds(141, 86, 109, 20);
-		contentPane.add(dateChooser);
+		JLabel lblDescrio_1 = new JLabel("Descri\u00E7\u00E3o:");
+		lblDescrio_1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblDescrio_1.setBounds(23, 103, 118, 28);
+		JFInserirDespesa.add(lblDescrio_1);
 		
-		JLabel lblQuantidadeDeParcelas = new JLabel("Quantidade de parcelas:");
-		lblQuantidadeDeParcelas.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblQuantidadeDeParcelas.setBounds(23, 140, 149, 14);
-		contentPane.add(lblQuantidadeDeParcelas);
+		JLabel lblDataDeVencimento = new JLabel("Data de vencimento:");
+		lblDataDeVencimento.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblDataDeVencimento.setBounds(23, 290, 227, 28);
+		JFInserirDespesa.add(lblDataDeVencimento);
 		
-		JSpinField spinField = new JSpinField();
-		spinField.setToolTipText("Escolha a quantidade de parcelas desta despesa, caso necess\u00E1rio.");
-		spinField.setBounds(182, 134, 29, 20);
-		contentPane.add(spinField);
+		JDateChooser data_venc_desp = new JDateChooser();
+		data_venc_desp.setToolTipText("Insira a data de vencimento da despesa.");
+		data_venc_desp.setBounds(20, 329, 685, 28);
+		JFInserirDespesa.add(data_venc_desp);
 		
-		JLabel lblDescrio = new JLabel("Descri\u00E7\u00E3o:");
-		lblDescrio.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblDescrio.setBounds(23, 192, 78, 14);
-		contentPane.add(lblDescrio);
+		JLabel lblParcelas = new JLabel("Parcelas:");
+		lblParcelas.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblParcelas.setBounds(23, 368, 118, 28);
+		JFInserirDespesa.add(lblParcelas);
 		
-		TextArea textArea = new TextArea();
-		textArea.setBounds(141, 192, 218, 94);
-		contentPane.add(textArea);
+		JSpinField qtd_parcelas = new JSpinField();
+		qtd_parcelas.setToolTipText("Insira a quantidade de parcelas que esta despesa possui, caso necess\u00E1rio.");
+		qtd_parcelas.setMinimum(0);
+		qtd_parcelas.setBounds(23, 407, 682, 28);
+		JFInserirDespesa.add(qtd_parcelas);
 		
 		JLabel lblValor = new JLabel("Valor:");
-		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblValor.setBounds(23, 311, 78, 14);
-		contentPane.add(lblValor);
+		lblValor.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblValor.setBounds(23, 445, 118, 28);
+		JFInserirDespesa.add(lblValor);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setToolTipText("Insira o valor da despesa. N\u00E3o pode conter letras e nem n\u00FAmeros negativos.");
-		formattedTextField.setBounds(135, 309, 76, 20);
-		contentPane.add(formattedTextField);
+		JNumberFormatField valor_despesa = new JNumberFormatField();
+		valor_despesa.setToolTipText("Insira o valor da despesa. N\u00E3o pode conter letras ou valores negativos.");
+		valor_despesa.setBounds(23, 484, 682, 28);
+		JFInserirDespesa.add(valor_despesa);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(9, 11, 431, 343);
-		contentPane.add(panel);
+		panel.setBorder(new TitledBorder(null, "Informa\u00E7\u00F5es de cadastro", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 11, 714, 524);
+		JFInserirDespesa.add(panel);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setToolTipText("Clique para cancelar e descartar as iforma\u00E7\u00F5es.");
-		btnCancelar.setBounds(118, 379, 89, 23);
-		contentPane.add(btnCancelar);
+		JLabel Voltar = new JLabel("Voltar");
+		Voltar.setToolTipText("Clique aqui para voltar a tela inicial.");
+		Voltar.setIcon(new ImageIcon(JInserirDespesa.class.getResource("/img/leftarrow.png")));
+		Voltar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		Voltar.setBounds(23, 560, 130, 79);
+		JFInserirDespesa.add(Voltar);
 		
-		JButton btnOk = new JButton("Ok");
-		btnOk.setToolTipText("Clique para salvar as informa\u00E7\u00F5es inseridas.");
-		btnOk.setBounds(223, 379, 89, 23);
-		contentPane.add(btnOk);
-		
-		JButton btnSair = new JButton("Sair");
-		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(javax.swing.JOptionPane.showConfirmDialog(null,"Deseja realmente sair?","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION )==0){  
-		            JInserirDespesa.this.dispose();
+		JLabel lblNewLabel = new JLabel("Salvar");
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Conexao.getConnection();
+				CadastroDespesa cadastro = new CadastroDespesa();
+				if(nome_despesa.getText() != null && nome_despesa.getText().length() > 0) {   
+					cadastro.setNomedespesa(nome_despesa.getText());
+				}else{
+					JOptionPane.showMessageDialog(nome_despesa,"Verifque os campos obrigatórios!");
+					nome_despesa.requestFocusInWindow();
+				}
+				if(descricao_despesa.getText() != null && descricao_despesa.getText().length() > 0) {   
+					cadastro.setNomedespesa(descricao_despesa.getText());
 				}
 			}
 		});
-		btnSair.setToolTipText("Clique para sair da tela.");
-		btnSair.setBounds(333, 379, 89, 23);
-		contentPane.add(btnSair);
+		lblNewLabel.setToolTipText("Clique aqui para salvar as informa\u00E7\u00F5es.");
+		lblNewLabel.setIcon(new ImageIcon(JInserirDespesa.class.getResource("/img/floppy1.png")));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setBounds(575, 560, 130, 79);
+		JFInserirDespesa.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(10, 358, 430, 64);
-		contentPane.add(panel_1);
+		panel_1.setBounds(10, 546, 714, 104);
+		JFInserirDespesa.add(panel_1);
 	}
 }
