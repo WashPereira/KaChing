@@ -40,19 +40,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import classes_extras.Conexao;
-import classes_extras.Iniciar;
-
 import java.sql.*;
 
-import classes_extras.CadastroDespesa;
 
 public class JInserirDespesa extends JFrame {
 
 	private JPanel JFInserirDespesa;
 	private JTextField nome_despesa;
-
+	Conexao conecta = new Conexao();//conecantando ao banco de dados
 	/**
 	 * Launch the application.
 	 * by: Wanderson R
@@ -74,6 +70,7 @@ public class JInserirDespesa extends JFrame {
 	 * Create the frame.
 	 */
 	public JInserirDespesa() {
+		conecta.conectar();
 		setName("JFInserirDespesa");
 		setResizable(false);
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -153,16 +150,30 @@ public class JInserirDespesa extends JFrame {
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Conexao.getConnection();
-				CadastroDespesa cadastro = new CadastroDespesa();
-				if(nome_despesa.getText() != null && nome_despesa.getText().length() > 0) {   
-					cadastro.setNomedespesa(nome_despesa.getText());
-				}else{
-					JOptionPane.showMessageDialog(nome_despesa,"Verifque os campos obrigatórios!");
-					nome_despesa.requestFocusInWindow();
-				}
-				if(descricao_despesa.getText() != null && descricao_despesa.getText().length() > 0) {   
-					cadastro.setNomedespesa(descricao_despesa.getText());
+				java.util.Date data = data_venc_desp.getDate();//converter o formato da data
+				try {
+					PreparedStatement pst = conecta.conn.prepareStatement("insert into Despesas"
++ "(id_perfil, nome_desp, vencimento, descricao_desp, qtd_parcela, valor_desp) values"
++ "(4,?,?,?,?,?");//passar os dados por parametro para a tabela.
+					
+					//--Capturar as informações do formulário para o banco--//
+					pst.setString(2, nome_despesa.getText());
+					pst.setDate(3, new java.sql.Date(data.getTime()));
+					pst.setString(4, descricao_despesa.getText());
+					pst.setInt(5, qtd_parcelas.getValue());
+					pst.setBigDecimal(6, valor_despesa.getValue());
+					
+					//--verificar os campos obrigatórios--//
+					if(nome_despesa.getText() == null && nome_despesa.getText().length() < 0 && data_venc_desp.getDate()== null &&
+							valor_despesa.getText().replaceAll("[^1-9]","").isEmpty()){
+						JOptionPane.showMessageDialog(rootPane, "Verifique os campos obrigatórios!");
+					}else{
+						pst.executeUpdate();
+						JOptionPane.showMessageDialog(rootPane, "Dados salvos com sucesso!");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
