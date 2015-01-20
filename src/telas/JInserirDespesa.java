@@ -154,9 +154,10 @@ public class JInserirDespesa extends JFrame {
 				try {
 					PreparedStatement pst = conecta.conn.prepareStatement("insert into Despesas"
 + "(id_perfil, nome_desp, vencimento, descricao_desp, qtd_parcela, valor_desp) values"
-+ "(4,?,?,?,?,?");//passar os dados por parametro para a tabela.
++ "(?,?,?,?,?,?");//passar os dados por parametro para a tabela.
 					
 					//--Capturar as informações do formulário para o banco--//
+					pst.setInt(1, 4);
 					pst.setString(2, nome_despesa.getText());
 					pst.setDate(3, new java.sql.Date(data.getTime()));
 					pst.setString(4, descricao_despesa.getText());
@@ -174,6 +175,7 @@ public class JInserirDespesa extends JFrame {
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					JOptionPane.showMessageDialog(rootPane, "ERRO:!"+e.getMessage());
 				}
 			}
 		});
