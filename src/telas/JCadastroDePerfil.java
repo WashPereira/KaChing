@@ -188,7 +188,7 @@ public class JCadastroDePerfil extends JFrame {
 						+ "(?,?,?,?,?,?");
 					
 					pst.setString(1, nome_mae.getText());
-					pst.setInt(2, x);
+					//pst.setInt(2, x);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
