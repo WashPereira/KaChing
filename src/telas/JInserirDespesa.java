@@ -152,9 +152,9 @@ public class JInserirDespesa extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				java.util.Date data = data_venc_desp.getDate();//converter o formato da data
 				try {
-					PreparedStatement pst = conecta.conn.prepareStatement("insert into Despesas"
-+ "(id_perfil, nome_desp, vencimento, descricao_desp, qtd_parcela, valor_desp) values"
-+ "(?,?,?,?,?,?");//passar os dados por parametro para a tabela.
+					PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO Despesas"
++ "(id_perfil, nome_desp, vencimento, descricao_desp, qtd_parcela, valor_desp) VALUES"
++ "(?,?,?,?,?,?)");//passar os dados por parametro para a tabela.
 					
 					//--Capturar as informações do formulário para o banco--//
 					pst.setInt(1, 4);
