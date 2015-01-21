@@ -164,6 +164,7 @@ public class JInserirDespesa extends JFrame {
 					pst.setInt(5, qtd_parcelas.getValue());
 					pst.setBigDecimal(6, valor_despesa.getValue());
 					
+					
 					//--verificar os campos obrigatórios--//
 					if(nome_despesa.getText() == null && nome_despesa.getText().length() < 0 && data_venc_desp.getDate()== null &&
 							valor_despesa.getText().replaceAll("[^1-9]","").isEmpty()){
