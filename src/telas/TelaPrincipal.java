@@ -135,6 +135,10 @@ public class TelaPrincipal extends JFrame {
 		lblApagar.setBounds(909, 263, 122, 50);
 		lblApagar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/img/apagar.png")));
 		panel_2.add(lblApagar);
+		
+		JLabel lblInserirTabelaAqui = new JLabel("Inserir tabela aqui");
+		lblInserirTabelaAqui.setBounds(10, 33, 113, 14);
+		panel_2.add(lblInserirTabelaAqui);
 	
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
