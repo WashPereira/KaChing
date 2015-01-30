@@ -1,46 +1,23 @@
 package telas;
 
-
-import java.awt.BorderLayout;
+//importação das bibiliotecas utilizadas nessa classe
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
-
 import java.awt.Font;
-
 import javax.swing.JTextField;
-
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
-
 import java.awt.TextArea;
-
-import javax.swing.JFormattedTextField;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JToggleButton;
-import javax.swing.JScrollBar;
-
 import classes_extras.Conexao;
 import classes_extras.JNumberFormatField;
-
 import javax.swing.ImageIcon;
-
-import java.awt.Frame;
-import java.awt.Window.Type;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import classes_extras.Conexao;
 import java.sql.*;
 
 
