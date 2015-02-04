@@ -1,7 +1,7 @@
 package telas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,8 +10,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 
@@ -19,9 +19,9 @@ import java.awt.Font;
 
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
 import javax.swing.ImageIcon;
-import javax.swing.UIManager;
 import javax.swing.DefaultComboBoxModel;
 
 import java.awt.event.MouseAdapter;
@@ -32,6 +32,8 @@ import java.sql.SQLException;
 import classes_extras.Conexao;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.JFileChooser;
+
 
 public class JCadastroDePerfil extends JFrame {
 
@@ -39,7 +41,7 @@ public class JCadastroDePerfil extends JFrame {
 	private JTextField nome;
 	private JTextField nome_usuario;
 	private JPasswordField senha;
-	private JPasswordField passwordField_1;
+	private JPasswordField confirmar_senha;
 	private JTextField nome_mae;
 	private MaskFormatter setMascara(String mascara){
 	    MaskFormatter mask = null;  
@@ -70,6 +72,8 @@ public class JCadastroDePerfil extends JFrame {
 	 * Create the frame.
 	 */
 	public JCadastroDePerfil() {
+		setTitle("Perfil");
+		setResizable(false);
 		conecta.conectar();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 700);
@@ -80,15 +84,19 @@ public class JCadastroDePerfil extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192)), "Foto do Usu\u00E1rio", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(24, 31, 230, 301);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel salvar_img = new JPanel();
+		salvar_img.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192)), "Foto do Usu\u00E1rio", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
+		salvar_img.setBackground(Color.WHITE);
+		salvar_img.setBounds(24, 31, 230, 301);
+		contentPane.add(salvar_img);
+		salvar_img.setLayout(null);
 		
-		JLabel lblNome = new JLabel("Nome Completo");
-		lblNome.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		JLabel lbl_img = new JLabel("");
+		lbl_img.setBounds(5, 14, 221, 281);
+		salvar_img.add(lbl_img);
+		
+		JLabel lblNome = new JLabel("Nome Completo: *");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNome.setBounds(264, 21, 170, 14);
 		contentPane.add(lblNome);
 		
@@ -101,8 +109,8 @@ public class JCadastroDePerfil extends JFrame {
 		contentPane.add(nome);
 		nome.setColumns(10);
 		
-		JLabel lblCpf = new JLabel("Nome de Usu\u00E1rio");
-		lblCpf.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		JLabel lblCpf = new JLabel("Nome de Usu\u00E1rio: *");
+		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblCpf.setBounds(264, 87, 170, 14);
 		contentPane.add(lblCpf);
 		
@@ -115,9 +123,9 @@ public class JCadastroDePerfil extends JFrame {
 		contentPane.add(nome_usuario);
 		nome_usuario.setColumns(10);
 		
-		JLabel lblSexo = new JLabel("Sexo");
-		lblSexo.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblSexo.setBounds(264, 146, 46, 30);
+		JLabel lblSexo = new JLabel("Sexo: *");
+		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblSexo.setBounds(264, 146, 70, 30);
 		contentPane.add(lblSexo);
 		
 		JComboBox sexo = new JComboBox();
@@ -128,8 +136,8 @@ public class JCadastroDePerfil extends JFrame {
 		sexo.setBounds(264, 178, 448, 30);
 		contentPane.add(sexo);
 		
-		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		JLabel lblSenha = new JLabel("Senha: *");
+		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSenha.setBounds(264, 219, 129, 14);
 		contentPane.add(lblSenha);
 		
@@ -141,32 +149,27 @@ public class JCadastroDePerfil extends JFrame {
 		senha.setBounds(264, 244, 448, 30);
 		contentPane.add(senha);
 		
-		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha");
-		lblConfirmarSenha.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha: *");
+		lblConfirmarSenha.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblConfirmarSenha.setBounds(263, 277, 183, 30);
 		contentPane.add(lblConfirmarSenha);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setToolTipText("Confirme sua senha.");
-		passwordField_1.setBackground(Color.WHITE);
-		passwordField_1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		passwordField_1.setForeground(Color.DARK_GRAY);
-		passwordField_1.setBounds(264, 310, 448, 30);
-		contentPane.add(passwordField_1);
+		confirmar_senha = new JPasswordField();
+		confirmar_senha.setToolTipText("Confirme sua senha.");
+		confirmar_senha.setBackground(Color.WHITE);
+		confirmar_senha.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		confirmar_senha.setForeground(Color.DARK_GRAY);
+		confirmar_senha.setBounds(264, 310, 448, 30);
+		contentPane.add(confirmar_senha);
 		
-		JLabel lblLembreDeSenha = new JLabel("Lembrete de Senha");
-		lblLembreDeSenha.setFont(new Font("Century Gothic", Font.PLAIN, 18));
-		lblLembreDeSenha.setBounds(10, 375, 183, 30);
-		contentPane.add(lblLembreDeSenha);
-		
-		JLabel lblNewLabel = new JLabel("CPF");
-		lblNewLabel.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblNewLabel.setBounds(10, 416, 46, 14);
+		JLabel lblNewLabel = new JLabel("CPF: *");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setBounds(18, 418, 65, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNomeDaMe = new JLabel("Nome da M\u00E3e");
-		lblNomeDaMe.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblNomeDaMe.setBounds(10, 482, 183, 14);
+		JLabel lblNomeDaMe = new JLabel("Nome da M\u00E3e:");
+		lblNomeDaMe.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNomeDaMe.setBounds(17, 478, 183, 14);
 		contentPane.add(lblNomeDaMe);
 		
 		nome_mae = new JTextField();
@@ -174,11 +177,12 @@ public class JCadastroDePerfil extends JFrame {
 		nome_mae.setBackground(Color.WHITE);
 		nome_mae.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		nome_mae.setForeground(Color.DARK_GRAY);
-		nome_mae.setBounds(10, 507, 702, 30);
+		nome_mae.setBounds(17, 507, 702, 30);
 		contentPane.add(nome_mae);
 		nome_mae.setColumns(10);
 		
 		JLabel lblSalvar = new JLabel("Salvar");
+		lblSalvar.setToolTipText("Clique para salvar as informa\u00E7\u00F5es.");
 		lblSalvar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -201,17 +205,49 @@ public class JCadastroDePerfil extends JFrame {
 		contentPane.add(lblSalvar);
 		
 		JLabel lblVoltar = new JLabel("Voltar");
+		lblVoltar.setToolTipText("Clique para voltar a tela principal");
 		lblVoltar.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		lblVoltar.setIcon(new ImageIcon(JCadastroDePerfil.class.getResource("/img/leftarrow.png")));
-		lblVoltar.setBounds(10, 594, 694, 55);
+		lblVoltar.setBounds(24, 594, 694, 55);
 		contentPane.add(lblVoltar);
 		
 		JLabel lblCarregarFoto = new JLabel("Inserir foto");
-		lblCarregarFoto.setBounds(93, 332, 65, 14);
+		lblCarregarFoto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JFileChooser jfc = new JFileChooser();  
+                jfc.setFileFilter(new FileNameExtensionFilter("Imagem", "jpg", "jpeg", "gif","png"));  
+                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);  
+                jfc.showDialog(jfc, "Selecione");  
+                JOptionPane.showMessageDialog(null, jfc.getSelectedFile());
+                String caminho = jfc.getSelectedFile().getAbsolutePath();  
+                ImageIcon icon = new ImageIcon(caminho);  
+                salvar_img.setBackground(null); 
+                lbl_img.setIcon(new ImageIcon(icon.getImage().getScaledInstance(221, 281, Image.SCALE_SMOOTH)));
+			}
+		});
+		lblCarregarFoto.setToolTipText("Clique para carregar uma foto de seu perfil.");
+		lblCarregarFoto.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblCarregarFoto.setBounds(93, 332, 107, 40);
 		contentPane.add(lblCarregarFoto);
 		
 		JFormattedTextField cpf = new JFormattedTextField();
-		cpf.setBounds(10, 438, 702, 30);
+		cpf.setBounds(16, 439, 702, 30);
 		contentPane.add(cpf);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(10, 11, 724, 375);
+		contentPane.add(panel_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setToolTipText("");
+		panel_2.setBorder(new TitledBorder(null, "Lembrete de senha", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(10, 397, 724, 156);
+		contentPane.add(panel_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 559, 724, 101);
+		contentPane.add(panel_3);
 	}
 }

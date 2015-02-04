@@ -61,7 +61,7 @@ public class JInserirDespesa extends JFrame {
 		setLocationRelativeTo(null); //faz abrir centralizado na tela.
 		
 		JLabel lblNomeDaDespesa = new JLabel("Despesa:");
-		lblNomeDaDespesa.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblNomeDaDespesa.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNomeDaDespesa.setBounds(23, 25, 118, 28);
 		JFInserirDespesa.add(lblNomeDaDespesa);
 		
@@ -76,12 +76,12 @@ public class JInserirDespesa extends JFrame {
 		JFInserirDespesa.add(descricao_despesa);
 		
 		JLabel lblDescrio_1 = new JLabel("Descri\u00E7\u00E3o:");
-		lblDescrio_1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblDescrio_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblDescrio_1.setBounds(23, 103, 118, 28);
 		JFInserirDespesa.add(lblDescrio_1);
 		
 		JLabel lblDataDeVencimento = new JLabel("Data de vencimento:");
-		lblDataDeVencimento.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblDataDeVencimento.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblDataDeVencimento.setBounds(23, 290, 227, 28);
 		JFInserirDespesa.add(lblDataDeVencimento);
 		
@@ -91,7 +91,7 @@ public class JInserirDespesa extends JFrame {
 		JFInserirDespesa.add(data_venc_desp);
 		
 		JLabel lblParcelas = new JLabel("Parcelas:");
-		lblParcelas.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblParcelas.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblParcelas.setBounds(23, 368, 118, 28);
 		JFInserirDespesa.add(lblParcelas);
 		
@@ -102,7 +102,7 @@ public class JInserirDespesa extends JFrame {
 		JFInserirDespesa.add(qtd_parcelas);
 		
 		JLabel lblValor = new JLabel("Valor:");
-		lblValor.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblValor.setBounds(23, 445, 118, 28);
 		JFInserirDespesa.add(lblValor);
 		
@@ -119,7 +119,7 @@ public class JInserirDespesa extends JFrame {
 		JLabel Voltar = new JLabel("Voltar");
 		Voltar.setToolTipText("Clique aqui para voltar a tela inicial.");
 		Voltar.setIcon(new ImageIcon(JInserirDespesa.class.getResource("/img/leftarrow.png")));
-		Voltar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		Voltar.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		Voltar.setBounds(23, 560, 130, 79);
 		JFInserirDespesa.add(Voltar);
 		
@@ -157,7 +157,7 @@ public class JInserirDespesa extends JFrame {
 		});
 		lblNewLabel.setToolTipText("Clique aqui para salvar as informa\u00E7\u00F5es.");
 		lblNewLabel.setIcon(new ImageIcon(JInserirDespesa.class.getResource("/img/floppy1.png")));
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		lblNewLabel.setBounds(575, 560, 130, 79);
 		JFInserirDespesa.add(lblNewLabel);
 		

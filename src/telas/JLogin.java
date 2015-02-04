@@ -2,7 +2,6 @@ package telas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,13 +14,14 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
+import classes_extras.Conexao;
 
 public class JLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
-
+	Conexao conecta = new Conexao();//conecantando ao banco de dados
 	/**
 	 * Launch the application.
 	 */
@@ -42,6 +42,8 @@ public class JLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public JLogin() {
+		conecta.conectar();
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 688, 477);
 		contentPane = new JPanel();
@@ -49,6 +51,7 @@ public class JLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblKaching = new JLabel("");
 		lblKaching.setForeground(Color.GRAY);
