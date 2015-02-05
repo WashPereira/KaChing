@@ -43,13 +43,8 @@ public class JCadastroDePerfil extends JFrame {
 	private JPasswordField senha;
 	private JPasswordField confirmar_senha;
 	private JTextField nome_mae;
-	private MaskFormatter setMascara(String mascara){
-	    MaskFormatter mask = null;  
-	    try{  
-	        mask = new MaskFormatter(mascara);                        
-	        }catch(java.text.ParseException ex){}  
-	    return mask; 
-	}
+	private JFormattedTextField cpf;
+	
 	Conexao conecta = new Conexao();//conecantando ao banco de dados
 
 	/**
@@ -97,7 +92,7 @@ public class JCadastroDePerfil extends JFrame {
 		
 		JLabel lblNome = new JLabel("Nome Completo: *");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNome.setBounds(264, 21, 170, 14);
+		lblNome.setBounds(265, 51, 170, 14);
 		contentPane.add(lblNome);
 		
 		nome = new JTextField();
@@ -105,13 +100,13 @@ public class JCadastroDePerfil extends JFrame {
 		nome.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		nome.setForeground(Color.DARK_GRAY);
 		nome.setBackground(Color.WHITE);
-		nome.setBounds(264, 46, 448, 30);
+		nome.setBounds(265, 76, 448, 30);
 		contentPane.add(nome);
 		nome.setColumns(10);
 		
 		JLabel lblCpf = new JLabel("Nome de Usu\u00E1rio: *");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblCpf.setBounds(264, 87, 170, 14);
+		lblCpf.setBounds(265, 117, 170, 14);
 		contentPane.add(lblCpf);
 		
 		nome_usuario = new JTextField();
@@ -119,26 +114,26 @@ public class JCadastroDePerfil extends JFrame {
 		nome_usuario.setBackground(Color.WHITE);
 		nome_usuario.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		nome_usuario.setForeground(Color.DARK_GRAY);
-		nome_usuario.setBounds(264, 112, 448, 30);
+		nome_usuario.setBounds(265, 142, 448, 30);
 		contentPane.add(nome_usuario);
 		nome_usuario.setColumns(10);
 		
 		JLabel lblSexo = new JLabel("Sexo: *");
 		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSexo.setBounds(264, 146, 70, 30);
+		lblSexo.setBounds(265, 176, 70, 30);
 		contentPane.add(lblSexo);
 		
 		JComboBox sexo = new JComboBox();
 		sexo.setModel(new DefaultComboBoxModel(new String[] {"Selecione uma op\u00E7\u00E3o...", "Feminino", "Masculino"}));
-		sexo.setToolTipText("Selecione uma op\u00E7\u00E3o.");
+		sexo.setToolTipText("Selecione seu g\u00EAnero sexual.");
 		sexo.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		sexo.setForeground(Color.DARK_GRAY);
-		sexo.setBounds(264, 178, 448, 30);
+		sexo.setBounds(265, 208, 448, 30);
 		contentPane.add(sexo);
 		
 		JLabel lblSenha = new JLabel("Senha: *");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSenha.setBounds(264, 219, 129, 14);
+		lblSenha.setBounds(265, 249, 129, 14);
 		contentPane.add(lblSenha);
 		
 		senha = new JPasswordField();
@@ -146,12 +141,12 @@ public class JCadastroDePerfil extends JFrame {
 		senha.setBackground(Color.WHITE);
 		senha.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		senha.setForeground(Color.DARK_GRAY);
-		senha.setBounds(264, 244, 448, 30);
+		senha.setBounds(265, 274, 448, 30);
 		contentPane.add(senha);
 		
 		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha: *");
 		lblConfirmarSenha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblConfirmarSenha.setBounds(263, 277, 183, 30);
+		lblConfirmarSenha.setBounds(264, 307, 183, 30);
 		contentPane.add(lblConfirmarSenha);
 		
 		confirmar_senha = new JPasswordField();
@@ -159,7 +154,7 @@ public class JCadastroDePerfil extends JFrame {
 		confirmar_senha.setBackground(Color.WHITE);
 		confirmar_senha.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		confirmar_senha.setForeground(Color.DARK_GRAY);
-		confirmar_senha.setBounds(264, 310, 448, 30);
+		confirmar_senha.setBounds(265, 340, 448, 30);
 		contentPane.add(confirmar_senha);
 		
 		JLabel lblNewLabel = new JLabel("CPF: *");
@@ -192,7 +187,15 @@ public class JCadastroDePerfil extends JFrame {
 						+ "(?,?,?,?,?,?");
 					
 					pst.setString(1, nome_mae.getText());
-					//pst.setInt(2, x);
+					pst.setInt(2, (int) cpf.getValue());
+					pst.setString(3, senha.getText());
+					pst.setString(4, nome_usuario.getText());
+					if (sexo.getSelectedIndex()==1){
+						pst.setString(5, "F");
+					}else{
+						pst.setString(5, "M");
+					}
+					pst.setString(6, nome.getText());
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -231,14 +234,16 @@ public class JCadastroDePerfil extends JFrame {
 		lblCarregarFoto.setBounds(93, 332, 107, 40);
 		contentPane.add(lblCarregarFoto);
 		
-		JFormattedTextField cpf = new JFormattedTextField();
-		cpf.setBounds(16, 439, 702, 30);
-		contentPane.add(cpf);
+		try{
+			MaskFormatter msk = new MaskFormatter("###.###.###-##");
+			JFormattedTextField cpf = new JFormattedTextField(msk);
+			cpf.setToolTipText("Insira seu CPF. Caso esque\u00E7a sua senha futuramente, o CPF ser\u00E1 o seu lembrete.");
+			cpf.setBounds(16, 439, 702, 30);
+			contentPane.add(cpf);
+		}catch(Exception erro)  
+		{    
+		}  
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(10, 11, 724, 375);
-		contentPane.add(panel_1);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setToolTipText("");
@@ -249,5 +254,14 @@ public class JCadastroDePerfil extends JFrame {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 559, 724, 101);
 		contentPane.add(panel_3);
+		
+		JLabel lblCamposObrigatrios = new JLabel("* campos obrigat\u00F3rios");
+		lblCamposObrigatrios.setBounds(547, 31, 131, 14);
+		contentPane.add(lblCamposObrigatrios);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 11, 724, 375);
+		contentPane.add(panel);
 	}
 }
