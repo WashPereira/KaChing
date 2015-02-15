@@ -25,12 +25,16 @@ import javax.swing.border.BevelBorder;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 public class JMeta extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	private JTable table_1;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -53,7 +57,7 @@ public class JMeta extends JFrame {
 	 */
 	public JMeta() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 622, 574);
+		setBounds(100, 100, 750, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,41 +71,59 @@ public class JMeta extends JFrame {
 		tabbedPane.addTab("Cadastro", null, panel, null);
 		panel.setLayout(null);
 		
-		JLabel label = new JLabel("Nome\r\n");
+		JLabel label = new JLabel("Nome\r\n:");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		label.setBounds(10, 11, 121, 26);
 		panel.add(label);
 		
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setBackground(SystemColor.window);
-		editorPane.setBounds(10, 40, 574, 26);
-		panel.add(editorPane);
-		
-		JLabel label_1 = new JLabel("Descri\u00E7\u00E3o");
+		JLabel label_1 = new JLabel("Descri\u00E7\u00E3o:");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		label_1.setBounds(10, 77, 121, 26);
 		panel.add(label_1);
 		
 		JEditorPane editorPane_1 = new JEditorPane();
-		editorPane_1.setBounds(10, 114, 574, 158);
+		editorPane_1.setBackground(SystemColor.text);
+		editorPane_1.setForeground(Color.BLACK);
+		editorPane_1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		editorPane_1.setBounds(10, 114, 709, 177);
 		panel.add(editorPane_1);
 		
-		JLabel label_2 = new JLabel("Selecione uma op\u00E7\u00E3o");
+		JLabel label_2 = new JLabel("Selecione uma op\u00E7\u00E3o:");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_2.setBounds(10, 283, 149, 26);
+		label_2.setBounds(10, 302, 171, 26);
 		panel.add(label_2);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Caixa/Paupar", "Despesa", "Receita"}));
-		comboBox.setBounds(10, 320, 574, 26);
+		comboBox.setBounds(10, 339, 709, 30);
 		panel.add(comboBox);
 		
-		JLabel label_3 = new JLabel("Data a Cumprir");
+		JLabel label_3 = new JLabel("Data a cumprir:");
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_3.setBounds(10, 357, 149, 26);
+		label_3.setBounds(10, 376, 149, 26);
 		panel.add(label_3);
 		
+		textField = new JTextField();
+		textField.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		textField.setBounds(10, 46, 709, 31);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		textField_1.setColumns(10);
+		textField_1.setBounds(10, 413, 709, 30);
+		panel.add(textField_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(10, 475, 709, 147);
+		panel.add(panel_2);
+		panel_2.setLayout(null);
+		
 		JLabel label_4 = new JLabel("Voltar");
+		label_4.setBounds(10, 31, 130, 79);
+		panel_2.add(label_4);
 		label_4.setIcon(new ImageIcon(JMeta.class.getResource("/img/leftarrow.png")));
 		label_4.addMouseListener(new MouseAdapter() {
 			@Override
@@ -110,15 +132,18 @@ public class JMeta extends JFrame {
 		});
 		label_4.setToolTipText("Clique aqui para voltar a tela inicial.");
 		label_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_4.setBounds(10, 409, 130, 79);
-		panel.add(label_4);
 		
 		JLabel label_5 = new JLabel("Salvar\r\n");
+		label_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		label_5.setBounds(569, 31, 130, 79);
+		panel_2.add(label_5);
 		label_5.setIcon(new ImageIcon(JMeta.class.getResource("/img/floppy1.png")));
 		label_5.setToolTipText("Clique aqui para voltar a tela inicial.");
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_5.setBounds(454, 409, 130, 79);
-		panel.add(label_5);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Metas Cadastradas\r\n", null, panel_1, null);
@@ -133,28 +158,18 @@ public class JMeta extends JFrame {
 		table.setBounds(10, 286, 317, -228);
 		panel_1.add(table);
 		
-		JLabel label_6 = new JLabel("Apagar");
-		label_6.setIcon(new ImageIcon(JMeta.class.getResource("/img/apagar.png")));
-		label_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_6.setBounds(10, 293, 149, 69);
-		panel_1.add(label_6);
-		
 		JLabel label_7 = new JLabel("Editar\r\n");
+		label_7.setForeground(Color.DARK_GRAY);
 		label_7.setIcon(new ImageIcon(JMeta.class.getResource("/img/editar3.png")));
-		label_7.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_7.setBounds(434, 293, 149, 69);
+		label_7.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		label_7.setBounds(556, 450, 149, 69);
 		panel_1.add(label_7);
 		
-		JLabel label_8 = new JLabel("Voltar");
-		label_8.setIcon(new ImageIcon(JMeta.class.getResource("/img/leftarrow.png")));
-		label_8.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_8.setBounds(10, 402, 149, 69);
-		panel_1.add(label_8);
-		
 		JLabel label_9 = new JLabel("Salvar");
+		label_9.setForeground(Color.DARK_GRAY);
 		label_9.setIcon(new ImageIcon(JMeta.class.getResource("/img/floppy1.png")));
-		label_9.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_9.setBounds(434, 402, 149, 69);
+		label_9.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		label_9.setBounds(556, 530, 149, 69);
 		panel_1.add(label_9);
 		
 		table_1 = new JTable();
@@ -198,7 +213,27 @@ public class JMeta extends JFrame {
 		table_1.setColumnSelectionAllowed(true);
 		table_1.setCellSelectionEnabled(true);
 		table_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		table_1.setBounds(10, 45, 560, 230);
+		table_1.setBounds(10, 45, 709, 394);
 		panel_1.add(table_1);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBounds(10, 450, 709, 155);
+		panel_1.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel label_6 = new JLabel("Apagar");
+		label_6.setBounds(10, 0, 149, 69);
+		panel_3.add(label_6);
+		label_6.setForeground(Color.DARK_GRAY);
+		label_6.setIcon(new ImageIcon(JMeta.class.getResource("/img/apagar.png")));
+		label_6.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		
+		JLabel label_8 = new JLabel("Voltar");
+		label_8.setBounds(10, 80, 149, 69);
+		panel_3.add(label_8);
+		label_8.setForeground(Color.DARK_GRAY);
+		label_8.setIcon(new ImageIcon(JMeta.class.getResource("/img/leftarrow.png")));
+		label_8.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 	}
 }
