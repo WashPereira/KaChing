@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
+import java.awt.Color;
 
 
 public class JInserirDespesa extends JFrame {
@@ -117,6 +118,7 @@ public class JInserirDespesa extends JFrame {
 		JFInserirDespesa.add(panel);
 		
 		JLabel Voltar = new JLabel("Voltar");
+		Voltar.setForeground(Color.DARK_GRAY);
 		Voltar.setToolTipText("Clique aqui para voltar a tela inicial.");
 		Voltar.setIcon(new ImageIcon(JInserirDespesa.class.getResource("/img/leftarrow.png")));
 		Voltar.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -124,6 +126,7 @@ public class JInserirDespesa extends JFrame {
 		JFInserirDespesa.add(Voltar);
 		
 		JLabel lblNewLabel = new JLabel("Salvar");
+		lblNewLabel.setForeground(Color.DARK_GRAY);
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
