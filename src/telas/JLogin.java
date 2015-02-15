@@ -100,6 +100,7 @@ public class JLogin extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				//Abrir a tela de cadastro de perfil
 				
+				new JCadastroDePerfil().setVisible(true);
 			}
 		});
 		lblCadastrar.setFont(new Font("Century Gothic", Font.PLAIN, 14));
