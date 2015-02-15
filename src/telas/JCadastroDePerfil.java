@@ -43,7 +43,7 @@ public class JCadastroDePerfil extends JFrame {
 	private JPasswordField senha;
 	private JPasswordField confirmar_senha;
 	private JTextField nome_mae;
-	
+
 	
 	Conexao conecta = new Conexao();//conecantando ao banco de dados
 	private JTextField cpf;
@@ -51,6 +51,7 @@ public class JCadastroDePerfil extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
