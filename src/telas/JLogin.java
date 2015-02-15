@@ -15,6 +15,9 @@ import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
 import classes_extras.Conexao;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import telas.JCadastroDePerfil;
 
 public class JLogin extends JFrame {
 
@@ -92,6 +95,13 @@ public class JLogin extends JFrame {
 		contentPane.add(lblEntar);
 		
 		JLabel lblCadastrar = new JLabel("Cadastrar");
+		lblCadastrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//Abrir a tela de cadastro de perfil
+				
+			}
+		});
 		lblCadastrar.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		lblCadastrar.setIcon(new ImageIcon(JLogin.class.getResource("/img/pencil78.png")));
 		lblCadastrar.setBounds(376, 296, 215, 58);

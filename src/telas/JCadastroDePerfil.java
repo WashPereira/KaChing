@@ -43,9 +43,10 @@ public class JCadastroDePerfil extends JFrame {
 	private JPasswordField senha;
 	private JPasswordField confirmar_senha;
 	private JTextField nome_mae;
-	private JFormattedTextField cpf;
+	
 	
 	Conexao conecta = new Conexao();//conecantando ao banco de dados
+	private JTextField cpf;
 
 	/**
 	 * Launch the application.
@@ -164,7 +165,7 @@ public class JCadastroDePerfil extends JFrame {
 		
 		JLabel lblNomeDaMe = new JLabel("Nome da M\u00E3e:");
 		lblNomeDaMe.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNomeDaMe.setBounds(17, 478, 183, 14);
+		lblNomeDaMe.setBounds(17, 482, 183, 14);
 		contentPane.add(lblNomeDaMe);
 		
 		nome_mae = new JTextField();
@@ -182,13 +183,13 @@ public class JCadastroDePerfil extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
-					PreparedStatement pst = conecta.conn.prepareStatement("insert into Perfil"
-						+ "(nome_mae, cpf, senha, nome_usuario, sexo, nome) values"
-						+ "(?,?,?,?,?,?");
+					PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO Perfil"
+						+ "(nome_mae, cpf, senha, nome_usuario, sexo, nome) VALUES"
+						+ "(?,?,?,?,?,?)");
 					
 					pst.setString(1, nome_mae.getText());
-					pst.setInt(2, (int) cpf.getValue());
-					pst.setString(3, senha.getText());
+					pst.setString(2, cpf.getText());
+					pst.setString(3, new String (senha.getPassword()));
 					pst.setString(4, nome_usuario.getText());
 					if (sexo.getSelectedIndex()==1){
 						pst.setString(5, "F");
@@ -196,6 +197,29 @@ public class JCadastroDePerfil extends JFrame {
 						pst.setString(5, "M");
 					}
 					pst.setString(6, nome.getText());
+					if (nome.getText().trim().equals("")){
+						nome.requestFocus();
+						JOptionPane.showMessageDialog(rootPane, "Campo NOME é obrigatório!");
+					}else if (nome_usuario.getText().trim().equals("")){
+						nome_usuario.requestFocus();
+						JOptionPane.showMessageDialog(rootPane, "Campo NOME DE USUÁRIO é obrigatório!");
+					}else if (sexo.getSelectedIndex()==0){
+						JOptionPane.showMessageDialog(rootPane, "Campo SEXO é obrigatório!");
+					}else if(new String (senha.getPassword()).trim().equals("")){
+						senha.requestFocus();
+						JOptionPane.showMessageDialog(rootPane, "Campo SENHA é obrigatório!");
+					}else if(cpf.getText().trim().equals("")){
+						cpf.requestFocus();
+						JOptionPane.showMessageDialog(rootPane, "Campo CPF é obrigatório!");	
+					}else{
+						if (new String (senha.getPassword()).trim().equals(new String(confirmar_senha.getPassword()))){
+							//pst.executeUpdate(); //faz salvar no banco de dados
+							JOptionPane.showMessageDialog(rootPane, "Dados salvos com sucesso!");
+						}else{
+							JOptionPane.showMessageDialog(rootPane, "Confira suas senhas e tente novamente!");
+							senha.requestFocus();
+						}
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -215,6 +239,7 @@ public class JCadastroDePerfil extends JFrame {
 		contentPane.add(lblVoltar);
 		
 		JLabel lblCarregarFoto = new JLabel("Inserir foto");
+		lblCarregarFoto.setIcon(new ImageIcon(JCadastroDePerfil.class.getResource("/img/camera2.png")));
 		lblCarregarFoto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -231,26 +256,10 @@ public class JCadastroDePerfil extends JFrame {
 		});
 		lblCarregarFoto.setToolTipText("Clique para carregar uma foto de seu perfil.");
 		lblCarregarFoto.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblCarregarFoto.setBounds(93, 332, 107, 40);
+		lblCarregarFoto.setBounds(34, 332, 220, 54);
 		contentPane.add(lblCarregarFoto);
 		
-		try{
-			MaskFormatter msk = new MaskFormatter("###.###.###-##");
-			JFormattedTextField cpf = new JFormattedTextField(msk);
-			cpf.setToolTipText("Insira seu CPF. Caso esque\u00E7a sua senha futuramente, o CPF ser\u00E1 o seu lembrete.");
-			cpf.setBounds(16, 439, 702, 30);
-			contentPane.add(cpf);
-		}catch(Exception erro)  
-		{    
-		}  
-		
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setToolTipText("");
-		panel_2.setBorder(new TitledBorder(null, "Lembrete de senha", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(10, 397, 724, 156);
-		contentPane.add(panel_2);
-		
+	
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 559, 724, 101);
 		contentPane.add(panel_3);
@@ -263,5 +272,15 @@ public class JCadastroDePerfil extends JFrame {
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 11, 724, 375);
 		contentPane.add(panel);
+		
+		cpf = new JTextField();
+		cpf.setBounds(18, 443, 701, 29);
+		contentPane.add(cpf);
+		cpf.setColumns(10);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Lembrete de senha", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(10, 397, 724, 153);
+		contentPane.add(panel_1);
 	}
 }
