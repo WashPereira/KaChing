@@ -36,7 +36,7 @@ public class Conexao {
 	
 	public void executarSQL(String sql){
 		try{
-			stm = Conexao.createStatement(rs.TYPE_SCROLL_SENSITIVE,rs.CONCUR_READ_ONLY);
+			stm = Conexao.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rs = stm.executeQuery(sql);
 		}catch (SQLException sqlex){
 			JOptionPane.showMessageDialog(null, "Erro: "+sqlex+" comando: "+sql );

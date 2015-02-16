@@ -19,6 +19,7 @@ import java.awt.Font;
 
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import classes_extras.Conexao;
 
@@ -149,9 +150,11 @@ public class TelaPrincipal extends JFrame {
 		table_1.setColumnSelectionAllowed(true);
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column"
+				"Nome da Despesa", "Descri\u00E7\u00E3o", "Quantidade de Parcelas", "Valor", "Data de Vencimento", "Status"
 			}
 		));
 		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -161,7 +164,7 @@ public class TelaPrincipal extends JFrame {
 			Conexao conexaoBanco = new Conexao();
 			conexaoBanco.conectar();
 			conexaoBanco.executarSQL("Select *from despesas");
-			//table_1.setModel(new ModeloTabela(conexaoBanco.rs));
+			table_1.setModel(new table_1(conexaoBanco.rs));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
