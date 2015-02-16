@@ -1,29 +1,34 @@
 package telas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.Panel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
 import com.toedter.calendar.JCalendar;
+
 import javax.swing.JTable;
+
 import java.awt.Color;
-import javax.swing.UIManager;
 import java.awt.Font;
+
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import classes_extras.Conexao;
 
 
 public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	
+	private JTable table_1;
+	Conexao conecta = new Conexao();//conecantando ao banco de dados
 
 	/**
 	 * Launch the application.
@@ -45,6 +50,7 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
+		conecta.conectar();
 		setTitle("KaChing");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1366, 700);
@@ -53,6 +59,8 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);//abre centralizada
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		JPanel panel = new JPanel();
 		panel.setForeground(Color.LIGHT_GRAY);
@@ -136,9 +144,27 @@ public class TelaPrincipal extends JFrame {
 		lblApagar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/img/apagar.png")));
 		panel_2.add(lblApagar);
 		
-		JLabel lblInserirTabelaAqui = new JLabel("Inserir tabela aqui");
-		lblInserirTabelaAqui.setBounds(10, 33, 113, 14);
-		panel_2.add(lblInserirTabelaAqui);
+		table_1 = new JTable();
+		table_1.setCellSelectionEnabled(true);
+		table_1.setColumnSelectionAllowed(true);
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_1.setBounds(22, 277, 846, -240);
+		panel_2.add(table_1);
+		try {
+			Conexao conexaoBanco = new Conexao();
+			conexaoBanco.conectar();
+			conexaoBanco.executarSQL("Select *from despesas");
+			//table_1.setModel(new ModeloTabela(conexaoBanco.rs));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
