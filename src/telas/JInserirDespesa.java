@@ -20,7 +20,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
 import java.awt.Color;
-import javax.swing.SwingConstants;
 
 
 public class JInserirDespesa extends JFrame {
@@ -49,7 +48,6 @@ public class JInserirDespesa extends JFrame {
 	 * Create the frame.
 	 */
 	public JInserirDespesa() {
-		setBackground(Color.WHITE);
 		conecta.conectar();
 		setName("JFInserirDespesa");
 		setResizable(false);
@@ -63,7 +61,7 @@ public class JInserirDespesa extends JFrame {
 		JFInserirDespesa.setLayout(null);
 		setLocationRelativeTo(null); //faz abrir centralizado na tela.
 		
-		JLabel lblNomeDaDespesa = new JLabel("Despesa:*");
+		JLabel lblNomeDaDespesa = new JLabel("Despesa:");
 		lblNomeDaDespesa.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNomeDaDespesa.setBounds(23, 25, 118, 28);
 		JFInserirDespesa.add(lblNomeDaDespesa);
@@ -83,7 +81,7 @@ public class JInserirDespesa extends JFrame {
 		lblDescrio_1.setBounds(23, 103, 118, 28);
 		JFInserirDespesa.add(lblDescrio_1);
 		
-		JLabel lblDataDeVencimento = new JLabel("Data de vencimento:*");
+		JLabel lblDataDeVencimento = new JLabel("Data de vencimento:");
 		lblDataDeVencimento.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblDataDeVencimento.setBounds(23, 290, 227, 28);
 		JFInserirDespesa.add(lblDataDeVencimento);
@@ -104,7 +102,7 @@ public class JInserirDespesa extends JFrame {
 		qtd_parcelas.setBounds(23, 407, 682, 28);
 		JFInserirDespesa.add(qtd_parcelas);
 		
-		JLabel lblValor = new JLabel("Valor:*");
+		JLabel lblValor = new JLabel("Valor:");
 		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblValor.setBounds(23, 445, 118, 28);
 		JFInserirDespesa.add(lblValor);
@@ -113,6 +111,11 @@ public class JInserirDespesa extends JFrame {
 		valor_despesa.setToolTipText("Insira o valor da despesa. N\u00E3o pode conter letras ou valores negativos.");
 		valor_despesa.setBounds(23, 484, 682, 28);
 		JFInserirDespesa.add(valor_despesa);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Informa\u00E7\u00F5es de cadastro", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 11, 714, 524);
+		JFInserirDespesa.add(panel);
 		
 		JLabel Voltar = new JLabel("Voltar");
 		Voltar.setForeground(Color.DARK_GRAY);
@@ -141,23 +144,12 @@ public class JInserirDespesa extends JFrame {
 					
 					
 					//--verificar os campos obrigatórios--//
-					if(nome_despesa.getText().trim().equals("")){
-						nome_despesa.requestFocus();
-						JOptionPane.showMessageDialog(rootPane, "O campo NOME DA DESPESA é obrigatório!");
-					}else if(data_venc_desp.getDate()==null){
-						JOptionPane.showMessageDialog(rootPane, "O campo DATA DE VENCIMENTO é obrigatório!");
-					}else if(valor_despesa.getText().replaceAll("[^1-9]","").isEmpty()){
-						valor_despesa.requestFocus();
-						JOptionPane.showMessageDialog(rootPane, "O campo VALOR é obrigatório!");
+					if(nome_despesa.getText() == null && nome_despesa.getText().length() < 0 && data_venc_desp.getDate()== null &&
+							valor_despesa.getText().replaceAll("[^1-9]","").isEmpty()){
+						JOptionPane.showMessageDialog(rootPane, "Verifique os campos obrigatórios!");
 					}else{
-						pst.executeUpdate();//sala informações no banco
+						pst.executeUpdate();
 						JOptionPane.showMessageDialog(rootPane, "Dados salvos com sucesso!");
-						//limpa os campos após salvar as informações no banco
-						nome_despesa.setText("");
-						data_venc_desp.setDate(null);
-						descricao_despesa.setText("");
-						qtd_parcelas.setValue(0);
-						valor_despesa.setText("");
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -176,14 +168,5 @@ public class JInserirDespesa extends JFrame {
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 546, 714, 104);
 		JFInserirDespesa.add(panel_1);
-		
-		JLabel label = new JLabel("* campos obrigat\u00F3rios");
-		label.setBounds(533, 34, 131, 14);
-		JFInserirDespesa.add(label);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Informa\u00E7\u00F5es de cadastro", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 714, 524);
-		JFInserirDespesa.add(panel);
 	}
 }
