@@ -39,6 +39,7 @@ public class JMeta extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * lokl
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
