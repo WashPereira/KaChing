@@ -214,8 +214,16 @@ public class JCadastroDePerfil extends JFrame {
 						JOptionPane.showMessageDialog(rootPane, "Campo CPF é obrigatório!");	
 					}else{
 						if (new String (senha.getPassword()).trim().equals(new String(confirmar_senha.getPassword()))){
-							//pst.executeUpdate(); //faz salvar no banco de dados
+							pst.executeUpdate(); //faz salvar no banco de dados
 							JOptionPane.showMessageDialog(rootPane, "Dados salvos com sucesso!");
+							//limpar os campos após salvar no banco
+							nome_mae.setText("");
+							cpf.setText("");
+							senha.setText("");
+							confirmar_senha.setText("");
+							nome_usuario.setText("");
+							sexo.setSelectedIndex(0);
+							nome.setText("");
 						}else{
 							JOptionPane.showMessageDialog(rootPane, "Confira suas senhas e tente novamente!");
 							senha.requestFocus();
